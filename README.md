@@ -68,7 +68,7 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
   ```
 
 ## Create an Internet Gateway
- 
+ An internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet. It supports    IPv4 and IPv6 traffic. An internet gateway enables resources in your public subnets (such as EC2 instances) to connect to the internet if the resource has a public IPv4 address or an IPv6 address. Similarly, resources on the internet can initiate a connection to resources in your subnet using the public IPv4 address or IPv6 address.
 
  Create Internet Gateway 
  ```sh
