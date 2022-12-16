@@ -81,61 +81,61 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
  ```
 
 ## Create a Public Subnet
-
+ A public subnet is a subnet that is associated with a route table that has a route to an Internet gateway. This connects the VPC to the Internet and to other AWS services.
+ Create a Public Subnet
  ```sh
  aws ec2 create-subnet --cidr-block "<CIDR_BLOCK>"  --availability-zone "<azone>"  --vpc-id "<vpc_id>"
  aws ec2 create-tags --resources "<Subnet_id>" --tags Key=Name,Value="<Subnet_Name>"
  aws ec2 modify-subnet-attribute  --subnet-id "<Subnet_id>"  --map-public-ip-on-launch
  ```
-## Create a Private Subnet
-
+ 
+ Create Public Route Table
  ```sh
- aws ec2 create-subnet --cidr-block "<CIDR_BLOCK>"  --availability-zone "<azone>"  --vpc-id "<vpc_id>"
- aws ec2 create-tags --resources "<Subnet_id>" --tags Key=Name,Value="<Subnet_Name>"
+ aws ec2 create-route-table --vpc-id "<vpc_id>"
+ aws ec2 create-tags --resources "<routetable_id>" --tags Key=Name,Value="<routetable_name>"
  ```
-
-## Allocate IP address for the NAT Gateway
-
+ 
+ Create a route to Internet gateway for Public Route table and associate to subnets
+ ```sh
+ aws ec2 create-route --route-table-id "<routetable_id>" --destination-cidr-block 0.0.0.0/0 --gateway-id "<gateway_id>"
+ aws ec2 associate-route-table --route-table-id "<routetable_id>" --subnet-id "<Subnet_id>"
+ ```
+ 
+## Creating NAT Gateway
+ 
+ Allocate IP address for the NAT Gateway.
  ```sh 
  aws ec2 allocate-address --domain vpc
  ```
-
-## Creating NAT Gateway
-
+ Create the NAT Gateway with the Elastic IP address.
  ```sh
  aws ec2 create-nat-gateway --subnet-id "<Subnet_id>" --allocation-id "<Allocation_ID>"
  aws ec2 create-tags --resources "<gateway_id>" --tags Key=Name,Value="<Natgw_Name>" 
  ```
 
-## Create Public Route Table
+## Create a Private Subnet
+A private subnet is a subnet that is associated with a route table that doesn’t have a route to an internet gateway. Instances in the private subnet are usually backend servers that doesn't require traffic from the internet. Private subnet's route table has a route specified to connect to the NAT gateway.
 
+ Create the Private Subnet
  ```sh
- aws ec2 create-route-table --vpc-id "<vpc_id>"
- aws ec2 create-tags --resources "<routetable_id>" --tags Key=Name,Value="<routetable_name>"
+ aws ec2 create-subnet --cidr-block "<CIDR_BLOCK>"  --availability-zone "<azone>"  --vpc-id "<vpc_id>"
+ aws ec2 create-tags --resources "<Subnet_id>" --tags Key=Name,Value="<Subnet_Name>"
  ```
-
-## Create a route to Internet gateway for Public Route table and associate to subnets
-
- ```sh
- aws ec2 create-route --route-table-id "<routetable_id>" --destination-cidr-block 0.0.0.0/0 --gateway-id "<gateway_id>"
- aws ec2 associate-route-table --route-table-id "<routetable_id>" --subnet-id "<Subnet_id>"
- ```
-
-## Create a private route table
-
+ 
+ Create a private route table
  ```sh
  aws ec2 create-route-table --vpc-id "<vpc_id>" 
  aws ec2 create-tags --resources "<routetable_id>" --tags Key=Name,Value="<routetable_name>"
  ```
 
-## Create routes to NAT Gateway and associate route table to Private subnet
+ Create routes to NAT Gateway and associate route table to Private subnet
  ```sh
  aws ec2 create-route --route-table-id <routetable_id> --destination-cidr-block 0.0.0.0/0 --gateway-id "<gateway_id>" 
  aws ec2 associate-route-table --route-table-id "<routetable_id>" --subnet-id "<Subnet_id>" 
  ```
 
 ## Create a Security Group to enable access via ports 22, 80 and 443
-
+ A security group acts as a virtual firewall for your EC2 instances to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your instance, and outbound rules control the outgoing traffic from your instance. In this case, we will be allowing access to ports 22, 80 and 443 via security groups.
  ```sh
  aws ec2 create-security-group  --group-name "<securitygroup_name>"  --description "<description>"  --vpc-id "$vpc_id"
  aws ec2 create-tags --resources "<securitygroup_id>" --tags Key=Name,Value="<securitygroup_name>"
@@ -145,17 +145,20 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
  ```
 
 ## Create Key Pair
+ A key pair, consisting of a public key and a private key, is a set of security credentials that you use to prove your identity when connecting to an Amazon EC2 instance. Amazon EC2 stores the public key on your instance, and you store the private key. For Linux instances, the private key allows you to securely SSH into your instance. 
  ```sh
  aws ec2 create-key-pair --key-name "<key_name>" --query 'KeyMaterial' --output text
  ```
 
 ## Create an Instance in the public subnet
+ Now let us create an instance in public subnet. We must ensure that a pulic IP adress is assosiated at the creation of the instance. 
  ```sh
  aws ec2 run-instances --image-id ami-074dc0a6f6c764218 --instance-type t2.micro --count 1 --subnet-id "<Subnet_id>" --security-group-ids "<securitygroup_id>" --associate-public-ip-address --key-name "<key_name>"
  aws ec2 create-tags --resources "<Instance_id>" --tags Key=Name,Value="<Instance_name>" &>/dev/null
  ```
 
 ## Create an Instance in the private subnet
+ Lets create an instance in private subnet. 
  ```sh
  aws ec2 run-instances --image-id ami-074dc0a6f6c764218 --instance-type t2.micro --count 1 --subnet-id "<Subnet_id>" --security-group-ids "<securitygroup_id>" --key-name "<key_name>"
  aws ec2 create-tags --resources "<Instance_id>" --tags Key=Name,Value="<Instance_name>" &>/dev/null
