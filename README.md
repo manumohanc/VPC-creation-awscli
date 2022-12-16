@@ -18,12 +18,12 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
 # Prerequisites
  - Create AWS account 
  - Setup AWS CLI
- Use the following commands to load the binary in a Linux distro
-```sh
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install --bin-dir /usr/local/bin
-```
-Amazon documentation can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+   Use the following commands to load the binary in a Linux distro
+    ```sh
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install --bin-dir /usr/local/bin
+    ```
+   Amazon documentation can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
  - Configure AWS CLI
  - Install jq Command-line JSON processor
