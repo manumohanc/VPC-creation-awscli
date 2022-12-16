@@ -4,7 +4,7 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
 
 ## Table of Contents
 1. [Prerequisites](#Prerequisites)
-2. [Create a VPC](#Create a VPC)
+2. [Create a VPC](#Create-a-VPC)
 3. Create Internet gateway
 4. Create Public Subnet
 5. Create Private Subnet
