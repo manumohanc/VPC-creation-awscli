@@ -7,17 +7,12 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
 2. [Create a VPC](#Create-a-VPC)
 3. [Create Internet gateway](#Create-Internet-gateway)
 4. [Create Public Subnet](#Create-Public-Subnet)
-5. [Create Private Subnet](#Create-Private-Subnet)
-6. [Allocate IP address for the NAT Gateway](#Allocate-IP-address-for-the-NAT-Gateway)
-7. [Creating NAT Gateway](#Creating-NAT-Gateway)
-8. [Create Public Route Table](#Create-Public-Route-Table)
-9. [Create a route to Internet gateway for Public Route table and associate to subnets](#Create-route-to-Internet-gateway-for-Public-Route-table-and-assosiate-to-subnets)
-10. [Create private route table](#Create-private-route-table)
-11. [Create routes to NAT Gateway for Private Route table and associate to subnet](#Create-routes-to-NAT-Gateway-for-Private-Route-table-and-assosiate-to-subnet)
-12. [Create Security Group to enable access via ports 22, 80 and 443](#Create-Security-Group-to-enable-access-via-ports-22,-80-and-443)
-13. [Create Key Pair](#Create-Key-Pair)
-14. [Create Instance in public subnet](#Create-Instance-in-public-subnet)
-15. [Create Instance in private subnet](#Create-Instance-in-private-subnet)
+5. [Creating NAT Gateway](#Creating-NAT-Gateway)
+6. [Create Private Subnet](#Create-Private-Subnet)
+7. [Create Security Group to enable access via ports 22, 80 and 443](#Create-Security-Group-to-enable-access-via-ports-22,-80-and-443)
+8. [Create Key Pair](#Create-Key-Pair)
+9. [Create Instance in public subnet](#Create-Instance-in-public-subnet)
+10. [Create Instance in private subnet](#Create-Instance-in-private-subnet)
 
 ## Prerequisites
  - Create AWS account 
@@ -82,6 +77,7 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
 
 ## Create a Public Subnet
  A public subnet is a subnet that is associated with a route table that has a route to an Internet gateway. This connects the VPC to the Internet and to other AWS services.
+ 
  Create a Public Subnet
  ```sh
  aws ec2 create-subnet --cidr-block "<CIDR_BLOCK>"  --availability-zone "<azone>"  --vpc-id "<vpc_id>"
@@ -102,6 +98,7 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
  ```
  
 ## Creating NAT Gateway
+ NAT Gateway is a highly available AWS managed service that makes it easy to connect to the Internet from instances within a private subnet in an Amazon Virtual Private Cloud (Amazon VPC).
  
  Allocate IP address for the NAT Gateway.
  ```sh 
@@ -136,6 +133,8 @@ A private subnet is a subnet that is associated with a route table that doesn’
 
 ## Create a Security Group to enable access via ports 22, 80 and 443
  A security group acts as a virtual firewall for your EC2 instances to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your instance, and outbound rules control the outgoing traffic from your instance. In this case, we will be allowing access to ports 22, 80 and 443 via security groups.
+
+ Create Security Group
  ```sh
  aws ec2 create-security-group  --group-name "<securitygroup_name>"  --description "<description>"  --vpc-id "$vpc_id"
  aws ec2 create-tags --resources "<securitygroup_id>" --tags Key=Name,Value="<securitygroup_name>"
@@ -146,6 +145,8 @@ A private subnet is a subnet that is associated with a route table that doesn’
 
 ## Create Key Pair
  A key pair, consisting of a public key and a private key, is a set of security credentials that you use to prove your identity when connecting to an Amazon EC2 instance. Amazon EC2 stores the public key on your instance, and you store the private key. For Linux instances, the private key allows you to securely SSH into your instance. 
+ 
+ Create Key Pair
  ```sh
  aws ec2 create-key-pair --key-name "<key_name>" --query 'KeyMaterial' --output text
  ```
