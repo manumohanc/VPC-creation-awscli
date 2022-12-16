@@ -5,19 +5,19 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
 ## Table of Contents
 1. [Prerequisites](#Prerequisites)
 2. [Create a VPC](#Create-a-VPC)
-3. Create Internet gateway
-4. Create Public Subnet
-5. Create Private Subnet
-6. Allocate IP address for the NAT Gateway
-7. Creating NAT Gateway
-8. Create Public Route Table
-9. Create route to Internet gateway for Public Route table and assosiate to subnets
-10. Create private route table
-11. Create routes to NAT Gateway and assosiate route table to subnet
-12. Create Security Group to enable access via port 22, 80 and 443
-13. Create Key Pair
-14. Create Instance in public subnet
-15. Create Instance in private subnet
+3. [Create Internet gateway](#Create-Internet-gateway)
+4. [Create Public Subnet](#Create-Public-Subnet)
+5. [Create Private Subnet](#Create-Private-Subnet)
+6. [Allocate IP address for the NAT Gateway](#Allocate-IP-address-for-the-NAT-Gateway)
+7. [Creating NAT Gateway](#Creating-NAT-Gateway)
+8. [Create Public Route Table](#Create-Public-Route-Table)
+9. [Create route to Internet gateway for Public Route table and assosiate to subnets](#Create-route-to-Internet-gateway-for-Public-Route-table-and-assosiate-to-subnets)
+10. [Create private route table](#Create-private-route-table)
+11. [Create routes to NAT Gateway for Private Route table and assosiate to subnet](#Create-routes-to-NAT-Gateway-for-Private-Route-table-and-assosiate-to-subnet)
+12. [Create Security Group to enable access via port 22, 80 and 443](#Create-Security-Group-to-enable-access-via-port-22,-80-and-443)
+13. [Create Key Pair](#Create-Key-Pair)
+14. [Create Instance in public subnet](#Create-Instance-in-public-subnet)
+15. [Create Instance in private subnet](#Create-Instance-in-private-subnet)
 
 ## Prerequisites
  - Create AWS account 
