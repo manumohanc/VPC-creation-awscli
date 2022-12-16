@@ -32,7 +32,7 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
    Amazon documentation can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
    
  - Configure AWS CLI
-    Create a user with programatic access and take a note of the access key and secret key
+    Create a user with programatic access and take a note of the access key and secret key.
     Next run aws configure command which will prompt for addtional details and save it as a profile named default.
      ```sh
      $ aws configure
@@ -43,7 +43,7 @@ I was fairly adamant that I would never use a terminal or a Command prompt befor
      ```
     Amazon documentation can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
     
- - Install jq Command-line JSON processor
+ - Install jq Command-line JSON processor.
     jq also known as JSON Processor an open source tool available on Linux Based System to process the JSON output and query the desired results.
      ```sh
      yum install epel-release -y
